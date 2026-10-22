@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CHROMA-MILL: a RAW dataset and a joint model for low-light enhancement and white balance under colored illumination (WACV 2027).">
+  <meta name="keywords" content="Low-Light Enhancement, White Balance, Colored Illumination, Dataset, WACV">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHROMA-MILL</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="./static/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="./static/img/favicon-180.png">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/util.js"></script>
+  <script defer src="./static/js/split.js"></script>
+  <script defer src="./static/js/mixer.js"></script>
+  <script defer src="./static/js/dataset.js"></script>
+  <script defer src="./static/js/compare.js"></script>
+  <script defer src="./static/js/results.js"></script>
+  <script defer src="./static/js/generalization.js"></script>
+  <script defer src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="wordmark">
+            <span class="wm-stage">
+              <span class="wm-rig" aria-hidden="true"><span class="lamp"></span><span class="lamp"></span><span class="lamp"></span><span class="lamp"></span><span class="lamp"></span></span>
+              <span class="wm-name">CHROMA-MILL</span>
+            </span>
+            <span class="wm-sub">Joint Low-Light Enhancement and White Balance under Colored Illumination</span>
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Pol Riubrogent Comas<sup>1,2</sup>,</span>
+            <span class="author-block">David Serrano-Lozano<sup>1,2</sup>,</span>
+            <span class="author-block">Maria Pilligua<sup>1,2</sup>,</span>
+            <span class="author-block">Michael S. Brown<sup>3</sup>,</span>
+            <span class="author-block">Ramon Baldrich<sup>1,2</sup>,</span>
+            <span class="author-block">Javier Vazquez-Corral<sup>1,2</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>Computer Vision Center,</span>
+            <span class="author-block"><sup>2</sup>Universitat Autònoma de Barcelona,</span>
+            <span class="author-block"><sup>3</sup>York University</span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">WACV 2027 · Applications Track</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a class="button is-normal is-rounded is-dark" disabled aria-disabled="true" title="Coming soon">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper <small>(soon)</small></span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="button is-normal is-rounded is-dark" disabled aria-disabled="true" title="Coming soon">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Supplementary <small>(soon)</small></span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="button is-normal is-rounded is-dark" disabled aria-disabled="true" title="Coming soon">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv <small>(soon)</small></span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="button is-normal is-rounded is-dark" disabled aria-disabled="true" title="Coming soon">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code <small>(soon)</small></span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="button is-normal is-rounded is-dark" disabled aria-disabled="true" title="Coming soon">
+                  <span class="icon"><i class="fas fa-database"></i></span>
+                  <span>Dataset <small>(soon)</small></span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#BibTeX" class="button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-quote-right"></i></span>
+                  <span>BibTeX</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser" id="mixer">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="buttons is-centered mixer-scenes" role="group" aria-label="Scene"></div>
+      <div class="columns is-vcentered mixer">
+        <div class="column is-4">
+          <svg class="cie-svg" viewBox="-10 50 760 860" role="application" tabindex="0"
+               aria-label="Chromaticity diagram. Drag, or use the arrow keys, to move the light inside the triangle."></svg>
+        </div>
+        <div class="column is-8">
+          <div class="frame">
+            <canvas class="mixer-canvas" width="600" height="400" aria-label="Scene under the selected light and intensity level"></canvas>
+            <div class="note mixer-note" hidden></div>
+          </div>
+        </div>
+      </div>
+      <div class="level-ctl">
+        <label for="mixer-level">Intensity level <b class="mixer-level-val">2</b></label>
+        <input id="mixer-level" class="slider is-fullwidth is-dark mixer-level" type="range" min="1" max="11" step="1" value="2">
+      </div>
+      <h2 class="subtitle has-text-centered">
+        Drag inside the triangle to change the color of the light, and use the slider to change its intensity. Every image is a mix of the real captures of the scene.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Capturing an image in a low-light environment produces a weak, noisy sensor signal. Low-light image enhancement (LLIE) aims to restore it. Auto white balance (AWB) is also required for every image, and the same noisy signal degrades its ability to infer the scene illuminant. LLIE is typically performed first, followed by AWB, but this strategy remains largely unexamined because existing low-light datasets span a narrow range of illuminants and lack illuminant ground truth for evaluating AWB. We address this with CHROMA-MILL, a RAW dataset of 50 scenes captured with a DSLR and smartphone under four calibrated illuminants at eleven intensity levels. Because light is additive, we blend these captures in the linear RAW domain to synthesize physically valid illuminant mixtures with exact chromaticity ground truth. Benchmarking on this data, we find joint correction is best, and introduce CTI-Retinexformer, which supervises an illumination map, a chromaticity prediction, and an illumination-invariant scene embedding, outperforming the best cascade by 0.7&nbsp;dB PSNR<sub>L</sub> and 1.1&nbsp;ΔE<sub>00</sub>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dataset">
+  <div class="container is-max-desktop">
+    <!-- Dataset -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Dataset</h2>
+        <div class="content has-text-justified">
+          <p>
+            CHROMA-MILL extends the MILL capture protocol along the color axis. We captured 50 scenes in RAW with a Nikon D5200 and a Samsung Galaxy S7, with fixed camera settings, under programmable LEDs: a red, a green, a blue and a white light, each at eleven intensity levels. Level 11 is the reference and the other ten levels are the low-light inputs. The scenes are split into 30 for training, 12 for validation and 8 for testing, with no objects shared between splits.
+          </p>
+          <p>
+            Every input has three ground truths: the white light at the same level (white balance only), the same light at Level 11 (enhancement only), and the white light at Level 11 (both). Since the captures are linear and aligned, we can also mix the lights of a scene to get new illuminants with a known chromaticity. This gives 48 illuminant conditions per level.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered" id="dataset-fig">
+      <div class="column">
+        <div class="scroll-x"><div class="lvl-grid"></div></div>
+        <h2 class="subtitle has-text-centered figure-sub">
+          One scene under the four lights at the eleven intensity levels. The outlined capture is the ground truth. Click any image to open it in the figure at the top.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <!-- Method -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            CTI-Retinexformer builds on Retinexformer and TI-Retinexformer. TI-Retinexformer splits the bottleneck of the network into an intensity channel and a scene embedding. We extend this split to color: the 160 bottleneck channels become one intensity channel, two channels that predict the chromaticity of the illuminant, and a 157-channel scene embedding.
+          </p>
+          <p>
+            Each part has its own loss. The intensity channel predicts the input level. The chromaticity channels predict the CIE xy of the light, and are pushed to be uniform over the image. A triplet loss keeps the scene embedding the same when only the light changes. All of them are added to an L1 reconstruction loss against the ground truth.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <div class="method-image">
+          <img src="static/img/method.png" alt="CTI-Retinexformer: the bottleneck is split into intensity, chromaticity and scene channels, each with its own loss." style="max-width: 100%" loading="lazy"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <!-- Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            We compare against cascades of a low-light enhancer (Retinexformer, TI-Retinexformer, DarkIR, MIRNet and PromptNorm) and a white-balance method (DWB, FC4, FFCC and RL-AWB), all fine-tuned on CHROMA-MILL and run in both orders. On the DSLR test set our model is the best on every metric, improving on the best cascade by 0.7&nbsp;dB PSNR<sub>L</sub> and 1.1&nbsp;ΔE<sub>00</sub>. On the smartphone it is the best on every metric except PSNR<sub>L</sub>, where Retinexformer + DWB is 0.07&nbsp;dB higher.
+          </p>
+          <p>
+            Cascades struggle because the second step gets an image it was not trained on: the color cast left by the enhancer, or a white balance estimated from noise. Which order works better depends on the pair of methods, and the gap between orders can be more than 3&nbsp;dB, but neither order reaches the joint model.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="compare-fig">
+      <div class="controls">
+        <div class="thumbs cmp-scenes" role="group" aria-label="Scene"></div>
+        <div class="buttons has-addons cmp-level" role="group" aria-label="Level"></div>
+        <div class="buttons has-addons cmp-ill" role="group" aria-label="Light"></div>
+        <div class="buttons has-addons cmp-cam" role="group" aria-label="Camera"></div>
+      </div>
+      <div class="columns">
+        <div class="column is-8">
+          <div class="split"></div>
+          <div class="pick">
+            <label for="cmp-left">Left</label><div class="select is-small"><select id="cmp-left" class="cmp-left"></select></div>
+            <label for="cmp-right">Right</label><div class="select is-small"><select id="cmp-right" class="cmp-right"></select></div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <table class="table is-narrow is-fullwidth cmp-table"></table>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered figure-sub">
+        Drag the divider to compare two methods on the same input. The underlined values are the best on this image.
+      </h2>
+    </div>
+
+    <div id="results-fig">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h3 class="title is-4">Benchmark</h3>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="buttons has-addons" role="group" aria-label="Camera" id="tbl-cam">
+          <button type="button" class="button is-small is-rounded is-dark" data-c="dslr" aria-pressed="true">Nikon D5200</button>
+          <button type="button" class="button is-small is-rounded" data-c="phone" aria-pressed="false">Galaxy S7</button>
+        </div>
+        <label class="checkbox"><input type="checkbox" id="tbl-all"> Show both cascade orders</label>
+      </div>
+      <div class="scroll-x"><table class="table is-narrow is-hoverable is-fullwidth res-table" id="res-table"></table></div>
+      <h2 class="subtitle has-text-centered figure-sub">
+        Average over all test images. Shaded is best, bold second and underlined third. Click a column to sort.
+      </h2>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h3 class="title is-4">Across intensity levels</h3>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="buttons has-addons" role="group" aria-label="Metric" id="plot-metric"></div>
+        <div class="buttons has-addons" role="group" aria-label="Camera" id="plot-cam">
+          <button type="button" class="button is-small is-rounded is-dark" data-c="dslr" aria-pressed="true">Nikon D5200</button>
+          <button type="button" class="button is-small is-rounded" data-c="phone" aria-pressed="false">Galaxy S7</button>
+        </div>
+      </div>
+      <div class="legend-key">
+        <span><i class="k-ours"></i>Ours</span>
+        <span><i class="k-mid"></i>Best cascades</span>
+        <span><i class="k-faint"></i>Other cascades</span>
+        <span><i class="k-dash"></i>Unprocessed</span>
+      </div>
+      <div class="plot-wrap" id="plot"></div>
+      <h2 class="subtitle has-text-centered figure-sub">
+        From the darkest input (1) to the brightest (10). Hover to see the values at one level.
+      </h2>
+    </div>
+
+    <div class="columns is-centered has-text-centered other-datasets">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">Other datasets</h3>
+        <div class="content has-text-justified">
+          <p>
+            All models are trained only on CHROMA-MILL and applied without fine-tuning to images from DICM, the Rendered WB dataset and LOLv1. These images have no ground truth, so there are no metrics.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" id="gen-fig">
+      <div class="column is-10">
+        <div class="controls"><div class="thumbs gen-thumbs" role="group" aria-label="Image"></div></div>
+        <div class="split"></div>
+        <div class="pick">
+          <label for="gen-left">Left</label><div class="select is-small"><select id="gen-left" class="gen-left"></select></div>
+          <label for="gen-right">Right</label><div class="select is-small"><select id="gen-right" class="gen-right"></select></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <div class="bib-wrap">
+      <button type="button" class="button is-small" id="bib-copy"><span class="icon"><i class="far fa-copy"></i></span><span>Copy</span></button>
+      <pre><code id="bib">@inproceedings{riubrogent2027chromamill,
+  title     = {CHROMA-MILL: Joint Low-Light Enhancement and White Balance under Colored Illumination},
+  author    = {Riubrogent Comas, Pol and Serrano-Lozano, David and Pilligua, Maria and Brown, Michael S. and Baldrich, Ramon and Vazquez-Corral, Javier},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year      = {2027}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is adopted from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies website</a> licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
