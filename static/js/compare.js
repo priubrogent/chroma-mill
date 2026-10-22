@@ -4,7 +4,7 @@
   const { $, el, getData, f2, press, toggleButton, prettyBlend, swatch, NAMES } = CM.util;
   const { makeSplit, methodSelects } = CM.split;
 
-  const ORDER = ['white', 'red', 'green', 'blue', 'red50_blue50', 'red_green_blue_33'];
+  const ORDER = ['red', 'green', 'blue'];   // lights offered in the comparison
   const SHORT = { white: 'W', red: 'R', green: 'G', blue: 'B', red50_blue50: 'R+B', red_green_blue_33: 'R+G+B' };
   const COLS = [['PSNR_L', 'PSNR<sub>L</sub>', 1], ['dE00', 'ΔE<sub>00</sub>', -1], ['SSIM', 'SSIM', 1]];
 
@@ -13,11 +13,11 @@
     const D = DATA.dslr;
     const M = D.methods;   // sprite order, the same for both cameras
     const scenes = Object.keys(D.scenes);
-    const st = { scene: scenes[0], level: 'L02', ill: 'red50_blue50', left: 'input', right: 'ours', cam: 'dslr' };
+    const st = { scene: scenes[0], level: 'L02', ill: 'red', left: 'input', right: 'ours', cam: 'dslr' };
     const split = makeSplit($('.split', root));
     const conds = Object.keys(D.scenes[scenes[0]]);
     const levels = [...new Set(conds.map(c => c.split('__')[0]))].sort();
-    const ills = [...new Set(conds.map(c => c.split('__')[1]))].sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b));
+    const ills = ORDER.filter(i => conds.some(c => c.endsWith(`__${i}`)));
 
     // scene thumbnails: crop the ground-truth (last) frame of the sprite
     const th = $('.cmp-scenes', root);
