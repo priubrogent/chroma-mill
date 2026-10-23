@@ -85,6 +85,9 @@
     const note = $('.mixer-note', root), slider = $('.mixer-level', root), lvlVal = $('.mixer-level-val', root);
     // the title's lamps show the same light: this chromaticity at this level's measured intensity
     const titleStage = $('.wm-stage');
+    const gtImg = $('.mixer-gt', root);
+    const lamps = {};
+    for (const s of root.querySelectorAll('.rig > span')) { lamps[s.dataset.k] = s; s.style.setProperty('--c', xyToCss(...XY[s.dataset.k])); }
     const reading = L => D.illuminants.white.reading[`L${pad(L)}`];
     const intensity = x => { const lo = Math.floor(x), f = x - lo; return (f ? reading(lo) * (1 - f) + reading(lo + 1) * f : reading(lo)) / S.white; };
     // captures to blend for light k at a (possibly fractional) level x: the nearest captured
@@ -126,12 +129,12 @@
       const L = st.level, w = st.w, shown = Math.round(L);
       ring.setAttribute('transform', `translate(${px(st.p[0])},${py(st.p[1])})`);
       lvlVal.textContent = String(shown);
-      if (titleStage) {
-        // the title only uses the top of the range: Levels 1-11 map onto the light of Levels 9-11
-        const k0 = intensity(1), k9 = intensity(9);
-        const k = k9 + (intensity(L) - k0) / (1 - k0) * (1 - k9);
-        titleStage.style.setProperty('--light', lightCss(st.p[0], st.p[1], k));
-      }
+      // the title and the rig only use the top of the range: Levels 1-11 map onto the light of Levels 9-11
+      const k0 = intensity(1), k9 = intensity(9);
+      const kTop = k9 + (intensity(L) - k0) / (1 - k0) * (1 - k9);
+      if (titleStage) titleStage.style.setProperty('--light', lightCss(st.p[0], st.p[1], kTop));
+      const wMax = Math.max(...ILLS.map(k => w[k]));
+      for (const k of ILLS) lamps[k].style.setProperty('--a', (w[k] / wMax * kTop).toFixed(3));
       const lights = ILLS.filter(k => w[k] > 1e-6);
       // a chosen whole level whose capture is missing is reported; in-between levels interpolate
       const missing = Number.isInteger(L) ? lights.filter(k => !has(`${k}_L${pad(L)}`)) : [];
@@ -171,6 +174,7 @@
     const sceneBtns = {};
     function setScene(id) {
       st.scene = id;
+      gtImg.src = SCENES.find(s => s.id === id).gt;
       for (const [k, b] of Object.entries(sceneBtns)) { const on = k === id; b.classList.toggle('is-dark', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
       schedule();
     }
