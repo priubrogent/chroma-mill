@@ -125,7 +125,7 @@
       const tok = ++renderToken;
       const L = st.level, w = st.w, shown = Math.round(L);
       ring.setAttribute('transform', `translate(${px(st.p[0])},${py(st.p[1])})`);
-      lvlVal.textContent = shown === 11 ? '11 (full power)' : String(shown);
+      lvlVal.textContent = String(shown);
       if (titleStage) {
         // the title only uses the top of the range: Levels 1-11 map onto the light of Levels 9-11
         const k0 = intensity(1), k9 = intensity(9);

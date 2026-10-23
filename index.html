@@ -115,21 +115,18 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <div class="buttons is-centered mixer-scenes" role="group" aria-label="Scene"></div>
-      <div class="columns is-vcentered mixer">
-        <div class="column is-4">
+      <div class="mixer">
           <svg class="cie-svg" viewBox="-10 50 760 860" role="application" tabindex="0"
                aria-label="Chromaticity diagram. Drag, or use the arrow keys, to move the light inside the triangle."></svg>
-        </div>
-        <div class="column is-8">
           <div class="frame">
             <canvas class="mixer-canvas" width="600" height="400" aria-label="Scene under the selected light and intensity level"></canvas>
             <div class="note mixer-note" hidden></div>
           </div>
-        </div>
       </div>
       <div class="level-ctl">
-        <label for="mixer-level">Intensity level <b class="mixer-level-val">2</b></label>
+        <label for="mixer-level">Intensity level</label>
         <input id="mixer-level" class="slider is-fullwidth is-dark mixer-level" type="range" min="1" max="11" step="1" value="2">
+        <b class="mixer-level-val">2</b>
       </div>
       <h2 class="subtitle has-text-centered">
         Drag inside the triangle to change the color of the light, and use the slider to change its intensity. Every image is a mix of the real captures of the scene.
@@ -171,13 +168,11 @@
       </div>
     </div>
 
-    <div class="columns is-centered" id="dataset-fig">
-      <div class="column">
+    <div class="fig" id="dataset-fig">
         <div class="scroll-x"><div class="lvl-grid"></div></div>
         <h2 class="subtitle has-text-centered figure-sub">
           One scene under the four lights at the eleven intensity levels. The outlined capture is the ground truth. Click any image to open it in the figure at the top.
         </h2>
-      </div>
     </div>
   </div>
 </section>
@@ -199,12 +194,10 @@
       </div>
     </div>
 
-    <div class="columns is-centered has-text-centered">
-      <div class="column">
+    <div class="fig">
         <div class="method-image">
           <img src="static/img/method.png" alt="CTI-Retinexformer: the bottleneck is split into intensity, chromaticity and scene channels, each with its own loss." style="max-width: 100%" loading="lazy"/>
         </div>
-      </div>
     </div>
   </div>
 </section>
@@ -226,31 +219,25 @@
       </div>
     </div>
 
-    <div id="compare-fig">
+    <div class="fig" id="compare-fig">
       <div class="controls">
         <div class="thumbs cmp-scenes" role="group" aria-label="Scene"></div>
         <div class="buttons has-addons cmp-level" role="group" aria-label="Level"></div>
         <div class="buttons has-addons cmp-ill" role="group" aria-label="Light"></div>
         <div class="buttons has-addons cmp-cam" role="group" aria-label="Camera"></div>
       </div>
-      <div class="columns">
-        <div class="column is-8">
-          <div class="split"></div>
-          <div class="pick">
-            <label for="cmp-left">Left</label><div class="select is-small"><select id="cmp-left" class="cmp-left"></select></div>
-            <label for="cmp-right">Right</label><div class="select is-small"><select id="cmp-right" class="cmp-right"></select></div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <table class="table is-narrow is-fullwidth cmp-table"></table>
-        </div>
+      <div class="split"></div>
+      <div class="pick">
+        <label for="cmp-left">Left</label><div class="select is-small"><select id="cmp-left" class="cmp-left"></select></div>
+        <label for="cmp-right">Right</label><div class="select is-small"><select id="cmp-right" class="cmp-right"></select></div>
       </div>
+      <table class="table is-narrow cmp-table"></table>
       <h2 class="subtitle has-text-centered figure-sub">
         Drag the divider to compare two methods on the same input. The underlined values are the best on this image.
       </h2>
     </div>
 
-    <div id="results-fig">
+    <div class="fig" id="results-fig">
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <h3 class="title is-4">Benchmark</h3>
@@ -302,15 +289,13 @@
         </div>
       </div>
     </div>
-    <div class="columns is-centered" id="gen-fig">
-      <div class="column is-10">
+    <div class="fig" id="gen-fig">
         <div class="controls"><div class="thumbs gen-thumbs" role="group" aria-label="Image"></div></div>
         <div class="split"></div>
         <div class="pick">
           <label for="gen-left">Left</label><div class="select is-small"><select id="gen-left" class="gen-left"></select></div>
           <label for="gen-right">Right</label><div class="select is-small"><select id="gen-right" class="gen-right"></select></div>
         </div>
-      </div>
     </div>
   </div>
 </section>
