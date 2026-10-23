@@ -86,8 +86,8 @@
     // the title's lamps show the same light: this chromaticity at this level's measured intensity
     const titleStage = $('.wm-stage');
     const gtImg = $('.mixer-gt', root);
-    const lamps = {};
-    for (const s of root.querySelectorAll('.rig > span')) { lamps[s.dataset.k] = s; s.style.setProperty('--c', xyToCss(...XY[s.dataset.k])); }
+    const rig = $('.rig', root), recipe = {};
+    for (const s of root.querySelectorAll('.recipe i')) { recipe[s.dataset.k] = s; s.style.background = xyToCss(...XY[s.dataset.k]); }
     const reading = L => D.illuminants.white.reading[`L${pad(L)}`];
     const intensity = x => { const lo = Math.floor(x), f = x - lo; return (f ? reading(lo) * (1 - f) + reading(lo + 1) * f : reading(lo)) / S.white; };
     // captures to blend for light k at a (possibly fractional) level x: the nearest captured
@@ -133,8 +133,8 @@
       const k0 = intensity(1), k9 = intensity(9);
       const kTop = k9 + (intensity(L) - k0) / (1 - k0) * (1 - k9);
       if (titleStage) titleStage.style.setProperty('--light', lightCss(st.p[0], st.p[1], kTop));
-      const wMax = Math.max(...ILLS.map(k => w[k]));
-      for (const k of ILLS) lamps[k].style.setProperty('--a', (w[k] / wMax * kTop).toFixed(3));
+      rig.style.setProperty('--c', lightCss(st.p[0], st.p[1], kTop));
+      for (const k of ILLS) recipe[k].style.width = `${(100 * w[k]).toFixed(2)}%`;
       const lights = ILLS.filter(k => w[k] > 1e-6);
       // a chosen whole level whose capture is missing is reported; in-between levels interpolate
       const missing = Number.isInteger(L) ? lights.filter(k => !has(`${k}_L${pad(L)}`)) : [];

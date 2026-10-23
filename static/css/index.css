@@ -227,21 +227,15 @@ html { scroll-behavior: smooth; }
 .mixer-side { display: flex; flex-direction: column; gap: 1rem; }
 .mixer-gt { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .frame .lab { position: absolute; top: .4rem; left: .4rem; font-size: .7rem; color: #fff; background: rgba(0,0,0,.55); padding: .15rem .45rem; border-radius: 4px; }
-/* the four lamps of the capture rig, each as bright as its share of the mix; the beams add up
-   (screen blend) where they overlap. --c is the lamp colour, --a its strength (set by mixer.js) */
-.rig { flex: 1; min-height: 6rem; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); background: #111; border-radius: 5px; overflow: hidden; isolation: isolate; }
-.rig > span { position: relative; --a: 0; }
-.rig .housing { position: absolute; top: .55rem; left: 50%; width: 1.7rem; height: .6rem; transform: translateX(-50%); background: #3d3d3d; border-radius: .3rem .3rem .1rem .1rem; }
-.rig .housing::after { content: ""; position: absolute; left: 14%; right: 14%; bottom: -3px; height: 3px; border-radius: 2px;
-  background: var(--c); opacity: calc(.12 + .88 * var(--a)); box-shadow: 0 0 9px 2px var(--c); }
-.rig .beam { position: absolute; top: 1.15rem; left: 50%; width: 200%; height: 140%; transform-origin: 50% 0; transform: translateX(-50%) rotate(var(--tilt));
-  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%); background: linear-gradient(var(--c) 10%, transparent 80%);
-  opacity: var(--a); mix-blend-mode: screen; transition: opacity .2s linear; }
-/* every lamp points at the middle of the floor, so the beams meet and mix there */
-.rig > span:nth-child(1) { --tilt: -32deg; }
-.rig > span:nth-child(2) { --tilt: -12deg; }
-.rig > span:nth-child(3) { --tilt: 12deg; }
-.rig > span:nth-child(4) { --tilt: 32deg; }
+/* the capture rig: every lamp gives the same light (one illuminant, lighting the whole scene evenly),
+   in the colour and intensity of the mix (--c, set by mixer.js). The bar at the bottom is the
+   recipe of that light: the share of the red, green, blue and white LEDs. */
+.rig { --c: #fff; flex: 1; min-height: 6rem; position: relative; display: flex; justify-content: space-around; align-items: flex-start; padding-top: .55rem;
+  background: linear-gradient(color-mix(in srgb, var(--c) 55%, #111) 0%, #111 95%); border-radius: 5px; overflow: hidden; }
+.rig .housing { position: relative; width: 1.7rem; height: .6rem; background: #3d3d3d; border-radius: .3rem .3rem .1rem .1rem; }
+.rig .housing::after { content: ""; position: absolute; left: 14%; right: 14%; bottom: -3px; height: 3px; border-radius: 2px; background: var(--c); box-shadow: 0 0 9px 2px var(--c); }
+.recipe { position: absolute; left: .6rem; right: .6rem; bottom: .6rem; height: 6px; display: flex; border-radius: 3px; overflow: hidden; }
+.recipe i { flex: 0 0 auto; height: 100%; transition: width .2s linear; }
 .frame { position: relative; aspect-ratio: 3 / 2; width: 100%; background: #000; overflow: hidden; border-radius: 5px; }
 .frame canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .frame .note { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; color: #b5b5b5; font-size: .9rem; }
